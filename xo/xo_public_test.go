@@ -128,7 +128,6 @@ func Test_XOGame_PlayerOne_Win_In_CrossLine_TopRightToBottomLeft(t *testing.T) {
 	assert.Equal(t,expected,actual)
 }
 
-//TODO
 func Test_XOGame_PlayerTwo_Win_In_Horizontal_FirstLine(t *testing.T) {
 	expected := "O WIN"
 	playerOne := xo.NewPlayer("KA","X")
