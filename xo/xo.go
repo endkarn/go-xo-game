@@ -57,6 +57,12 @@ func (game Game) checkWin() (bool , string) {
 			game.board[1][2] == game.playersOne.symbol ) {
 		return true , "X WIN"
 	}
+	if (
+			game.board[2][0] == game.playersOne.symbol &&
+			game.board[2][1] == game.playersOne.symbol &&
+			game.board[2][2] == game.playersOne.symbol ) {
+		return true , "X WIN"
+	}
 	return false , "NO WIN"
 }
 
