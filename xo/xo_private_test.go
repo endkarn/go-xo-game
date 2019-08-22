@@ -146,3 +146,20 @@ func Test_XOGame_PlayerTwo_Have_Score_1_After_Win_FirstGame(t *testing.T) {
 
 	assert.Equal(t, expected, actual)
 }
+
+func Test_XOGame_GameBoard_Should_Be_Empty_After_Player_Win_Game(t *testing.T) {
+	expected := [3][3]string{}
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
+
+	game.Play(playerOne, 0, 1)
+	game.Play(playerTwo, 0, 0)
+	game.Play(playerOne, 1, 0)
+	game.Play(playerTwo, 1, 1)
+	game.Play(playerOne, 2, 1)
+	game.Play(playerTwo, 2, 2)
+	actual := game.board
+
+	assert.Equal(t, expected, actual)
+}
