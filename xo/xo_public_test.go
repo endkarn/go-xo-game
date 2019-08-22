@@ -226,6 +226,37 @@ func Test_XOGame_PlayerTwo_Win_In_Vertical_ThirdLine(t *testing.T) {
 	assert.Equal(t,expected,actual)
 }
 
+func Test_XOGame_PlayerTwo_Win_In_CrossLine_TopLeftToBottomRight(t *testing.T) {
+	expected := "O WIN"
+	playerOne := xo.NewPlayer("KA","X")
+	playerTwo := xo.NewPlayer("PK","O")
+	game := xo.NewGame(playerOne,playerTwo)
+
+	game.Play(playerOne,0,1)
+	game.Play(playerTwo,0,0)
+	game.Play(playerOne,1,0)
+	game.Play(playerTwo,1,1)
+	game.Play(playerOne,2,1)
+	actual := game.Play(playerTwo,2,2)
+
+	assert.Equal(t,expected,actual)
+}
+
+func Test_XOGame_PlayerTwo_Win_In_CrossLine_TopRightToBottomLeft(t *testing.T) {
+	expected := "O WIN"
+	playerOne := xo.NewPlayer("KA","X")
+	playerTwo := xo.NewPlayer("PK","O")
+	game := xo.NewGame(playerOne,playerTwo)
+
+	game.Play(playerOne,0,0)
+	game.Play(playerTwo,0,2)
+	game.Play(playerOne,1,0)
+	game.Play(playerTwo,1,1)
+	game.Play(playerOne,2,1)
+	actual := game.Play(playerTwo,2,0)
+
+	assert.Equal(t,expected,actual)
+}
 
 
 
