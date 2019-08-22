@@ -38,8 +38,8 @@ func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_And_PlayerTwo_Location
 	assert.Equal(t,expected,actual)
 }
 
-func Test_CheckWin_Input_XXX_In_First_Line_Should_Be_X_WIN(t *testing.T){
-	expected := "X WIN"
+func Test_CheckWin_Put_XXX_In_First_Line_Should_Be_X_WIN_As_Winner_And_True_As_GameDone(t *testing.T){
+	expectedGameDone , expectedWinner := true,"X WIN"
 	playerOne := NewPlayer("KA","X")
 	playerTwo := NewPlayer("PK","O")
 	game := NewGame(playerOne,playerTwo)
@@ -48,21 +48,25 @@ func Test_CheckWin_Input_XXX_In_First_Line_Should_Be_X_WIN(t *testing.T){
 		[3]string{"","",""},
 		[3]string{"","",""},
 	}
-	_,actual := game.checkWin()
+	actualGameDone,actualWinner := game.checkWin()
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t,expectedWinner,actualWinner)
+	assert.Equal(t,expectedGameDone,actualGameDone)
 }
 
-func Test_CheckWin_Input_Board_From_NewGame_Should_Be_NO_WIN(t *testing.T){
-	expected := "NO WIN"
+func Test_CheckWin_Input_Board_From_NewGame_Should_Be_NO_WIN_As_Winner_And_False_As_GameDone(t *testing.T){
+	expectedGameDone , expectedWinner := false,"NO WIN"
 	playerOne := NewPlayer("KA","X")
 	playerTwo := NewPlayer("PK","O")
 	game := NewGame(playerOne,playerTwo)
 
-	_,actual := game.checkWin()
+	actualGameDone,actualWinner := game.checkWin()
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t,expectedWinner,actualWinner)
+	assert.Equal(t,expectedGameDone,actualGameDone)
 }
+
+
 
 func Test_SwitchTurn_Input_PlayerOne_Play_First_Turn_Should_Be_PlayerTwo_Turn(t *testing.T){
 	expected := "PK"
