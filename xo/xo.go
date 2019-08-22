@@ -40,8 +40,8 @@ func (game Game) Play(player Player, locationX,locationY int) string {
 	return "NO WIN"
 }
 
-func (game Game) marking(player Player, locationX,locationY int) {
-
+func (game *Game) marking(player Player, locationX,locationY int) {
+	game.board[locationX][locationY] = player.symbol
 }
 
 func (game Game) checkWin() (bool , string) {
