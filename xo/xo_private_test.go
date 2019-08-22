@@ -89,4 +89,26 @@ func Test_SwitchTurn_Input_PlayerTwo_Play_Second_Turn_Should_Be_PlayerOne_Turn(t
 	assert.Equal(t,expected,actual)
 }
 
+func Test_GetCurrentPlayer_FirstTurn_Should_Be_PlayerOne_Turn(t *testing.T){
+	expected := "KA"
+	playerOne := NewPlayer("KA","X")
+	playerTwo := NewPlayer("PK","O")
 
+	game := NewGame(playerOne,playerTwo)
+	actual := game.getCurrentPlayer().name
+
+	assert.Equal(t,expected,actual)
+}
+
+
+func Test_GetCurrentPlayer_SecondTurn_Should_Be_PlayerTwo_Turn(t *testing.T){
+	expected := "PK"
+	playerOne := NewPlayer("KA","X")
+	playerTwo := NewPlayer("PK","O")
+
+	game := NewGame(playerOne,playerTwo)
+	game.Play(playerOne,0,0)
+	actual := game.getCurrentPlayer().name
+
+	assert.Equal(t,expected,actual)
+}
