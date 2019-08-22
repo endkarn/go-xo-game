@@ -30,7 +30,7 @@ func NewGame(playerOne , playerTwo Player) Game {
 	}
 }
 
-func (game Game) Play(player Player, locationX,locationY int) string {
+func (game *Game) Play(player Player, locationX,locationY int) string {
 	game.marking(player,locationX,locationY)
 	gameDone , winner := game.checkWin()
 	if gameDone {
@@ -45,7 +45,13 @@ func (game *Game) marking(player Player, locationX,locationY int) {
 }
 
 func (game Game) checkWin() (bool , string) {
-	return true , "X WIN"
+	if (
+			game.board[0][0] == game.playersOne.symbol &&
+			game.board[0][1] == game.playersOne.symbol &&
+			game.board[0][2] == game.playersOne.symbol ) {
+			return true , "X WIN"
+	}
+	return false , "NO WIN"
 }
 
 func (game Game) switchTurn() {
