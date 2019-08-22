@@ -113,3 +113,36 @@ func Test_GetCurrentPlayer_SecondTurn_Should_Be_PlayerTwo_Turn(t *testing.T) {
 
 	assert.Equal(t, expected, actual)
 }
+
+func Test_XOGame_PlayerOne_Have_Score_1_After_Win_FirstGame(t *testing.T) {
+	expected := 1
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
+
+	game.Play(playerOne, 0, 0)
+	game.Play(playerTwo, 1, 0)
+	game.Play(playerOne, 0, 1)
+	game.Play(playerTwo, 1, 1)
+	game.Play(playerOne, 0, 2)
+	actual := game.playersOne.score
+
+	assert.Equal(t, expected, actual)
+}
+
+func Test_XOGame_PlayerTwo_Have_Score_1_After_Win_FirstGame(t *testing.T) {
+	expected := 1
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
+
+	game.Play(playerOne, 0, 1)
+	game.Play(playerTwo, 0, 0)
+	game.Play(playerOne, 1, 0)
+	game.Play(playerTwo, 1, 1)
+	game.Play(playerOne, 2, 1)
+	game.Play(playerTwo, 2, 2)
+	actual := game.playersTwo.score
+
+	assert.Equal(t, expected, actual)
+}
