@@ -36,6 +36,7 @@ func (game *Game) Play(player Player, locationX, locationY int) string {
 	game.marking(player, locationX, locationY)
 	gameDone, winner := game.checkWin()
 	if gameDone {
+		game.getCurrentPlayer().score++
 		return winner
 	}
 	game.switchTurn()
@@ -102,9 +103,9 @@ func (game *Game) switchTurn() {
 	}
 }
 
-func (game *Game) getCurrentPlayer() Player {
+func (game *Game) getCurrentPlayer() *Player {
 	if game.currentTurn == game.playersOne.name {
-		return game.playersOne
+		return &game.playersOne
 	}
-	return game.playersTwo
+	return &game.playersTwo
 }
