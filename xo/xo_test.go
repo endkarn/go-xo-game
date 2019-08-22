@@ -73,3 +73,16 @@ func Test_SwitchTurn_Input_PlayerOne_Play_First_Turn_Should_Be_PlayerTwo_Turn(t 
 
 	assert.Equal(t,expected,actual)
 }
+
+func Test_SwitchTurn_Input_PlayerTwo_Play_Second_Turn_Should_Be_PlayerOne_Turn(t *testing.T){
+	expected := "KA"
+	playerOne := NewPlayer("KA","X")
+	playerTwo := NewPlayer("PK","O")
+	game := NewGame(playerOne,playerTwo)
+
+	game.Play(playerOne,0,0)
+	game.Play(playerTwo,0,1)
+	actual := game.currentTurn
+
+	assert.Equal(t,expected,actual)
+}
