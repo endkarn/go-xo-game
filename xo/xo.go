@@ -1,17 +1,17 @@
 package xo
 
-const nowinmessage  =  "NO WIN"
+const nowinmessage = "NO WIN"
 
 type Player struct {
 	symbol string
-	name string
-	score int
+	name   string
+	score  int
 }
 
 type Game struct {
-	board [3][3]string
-	playersOne Player
-	playersTwo Player
+	board       [3][3]string
+	playersOne  Player
+	playersTwo  Player
 	currentTurn string
 }
 
@@ -23,7 +23,7 @@ func NewPlayer(name, symbol string) Player {
 	}
 }
 
-func NewGame(playerOne , playerTwo Player) Game {
+func NewGame(playerOne, playerTwo Player) Game {
 	return Game{
 		board:       [3][3]string{},
 		playersOne:  playerOne,
@@ -32,9 +32,9 @@ func NewGame(playerOne , playerTwo Player) Game {
 	}
 }
 
-func (game *Game) Play(player Player, locationX,locationY int) string {
-	game.marking(player,locationX,locationY)
-	gameDone , winner := game.checkWin()
+func (game *Game) Play(player Player, locationX, locationY int) string {
+	game.marking(player, locationX, locationY)
+	gameDone, winner := game.checkWin()
 	if gameDone {
 		return winner
 	}
@@ -42,64 +42,56 @@ func (game *Game) Play(player Player, locationX,locationY int) string {
 	return winner
 }
 
-func (game *Game) marking(player Player, locationX,locationY int) {
+func (game *Game) marking(player Player, locationX, locationY int) {
 	game.board[locationX][locationY] = player.symbol
 }
 
-func (game Game) checkWin() (bool , string) {
+func (game Game) checkWin() (bool, string) {
 	// Horizontal Conditions
 	currentPlayer := game.getCurrentPlayer()
-	if (
-			game.board[0][0] == currentPlayer.symbol &&
-			game.board[0][1] == currentPlayer.symbol &&
-			game.board[0][2] == currentPlayer.symbol ) {
-			return true , currentPlayer.symbol+" WIN"
+	if game.board[0][0] == currentPlayer.symbol &&
+		game.board[0][1] == currentPlayer.symbol &&
+		game.board[0][2] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
-	if (
-			game.board[1][0] == currentPlayer.symbol &&
-			game.board[1][1] == currentPlayer.symbol &&
-			game.board[1][2] == currentPlayer.symbol ) {
-		return true , currentPlayer.symbol+" WIN"
+	if game.board[1][0] == currentPlayer.symbol &&
+		game.board[1][1] == currentPlayer.symbol &&
+		game.board[1][2] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
-	if (
-			game.board[2][0] == currentPlayer.symbol &&
-			game.board[2][1] == currentPlayer.symbol &&
-			game.board[2][2] == currentPlayer.symbol ) {
-		return true , currentPlayer.symbol+" WIN"
+	if game.board[2][0] == currentPlayer.symbol &&
+		game.board[2][1] == currentPlayer.symbol &&
+		game.board[2][2] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
 	// Vertical Conditions
-	if (
-			game.board[0][0] == currentPlayer.symbol &&
-			game.board[1][0] == currentPlayer.symbol &&
-			game.board[2][0] == currentPlayer.symbol ) {
-		return true , currentPlayer.symbol+" WIN"
+	if game.board[0][0] == currentPlayer.symbol &&
+		game.board[1][0] == currentPlayer.symbol &&
+		game.board[2][0] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
-	if (
-			game.board[0][1] == currentPlayer.symbol &&
-			game.board[1][1] == currentPlayer.symbol &&
-			game.board[2][1] == currentPlayer.symbol ) {
-		return true , currentPlayer.symbol+" WIN"
+	if game.board[0][1] == currentPlayer.symbol &&
+		game.board[1][1] == currentPlayer.symbol &&
+		game.board[2][1] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
-	if (
-			game.board[0][2] == currentPlayer.symbol &&
-			game.board[1][2] == currentPlayer.symbol &&
-			game.board[2][2] == currentPlayer.symbol ) {
-		return true , currentPlayer.symbol+" WIN"
+	if game.board[0][2] == currentPlayer.symbol &&
+		game.board[1][2] == currentPlayer.symbol &&
+		game.board[2][2] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
 	// Cross Conditions
-	if (
-			game.board[0][0] == currentPlayer.symbol &&
-			game.board[1][1] == currentPlayer.symbol &&
-			game.board[2][2] == currentPlayer.symbol ) {
-		return true , currentPlayer.symbol+" WIN"
+	if game.board[0][0] == currentPlayer.symbol &&
+		game.board[1][1] == currentPlayer.symbol &&
+		game.board[2][2] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
-	if (
-			game.board[0][2] == currentPlayer.symbol &&
-			game.board[1][1] == currentPlayer.symbol &&
-			game.board[2][0] == currentPlayer.symbol ) {
-		return true , currentPlayer.symbol+" WIN"
+	if game.board[0][2] == currentPlayer.symbol &&
+		game.board[1][1] == currentPlayer.symbol &&
+		game.board[2][0] == currentPlayer.symbol {
+		return true, currentPlayer.symbol + " WIN"
 	}
-	return false , nowinmessage
+	return false, nowinmessage
 }
 
 func (game *Game) switchTurn() {

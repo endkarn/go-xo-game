@@ -5,114 +5,111 @@ import (
 	"testing"
 )
 
-func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_Should_Be_X_In_Board_0_0(t *testing.T){
+func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_Should_Be_X_In_Board_0_0(t *testing.T) {
 	expected := [3][3]string{
-		[3]string{"X","",""},
-		[3]string{"","",""},
-		[3]string{"","",""},
+		[3]string{"X", "", ""},
+		[3]string{"", "", ""},
+		[3]string{"", "", ""},
 	}
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
 
-	game.marking(playerOne,0,0)
+	game.marking(playerOne, 0, 0)
 	actual := game.board
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t, expected, actual)
 }
 
-func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_And_PlayerTwo_LocationX_0_LocationY_1_Should_Be_X_In_Board_0_0_And_O_In_Board_0_1(t *testing.T){
+func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_And_PlayerTwo_LocationX_0_LocationY_1_Should_Be_X_In_Board_0_0_And_O_In_Board_0_1(t *testing.T) {
 	expected := [3][3]string{
-		[3]string{"X","O",""},
-		[3]string{"","",""},
-		[3]string{"","",""},
+		[3]string{"X", "O", ""},
+		[3]string{"", "", ""},
+		[3]string{"", "", ""},
 	}
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
 
-	game.marking(playerOne,0,0)
-	game.marking(playerTwo,0,1)
+	game.marking(playerOne, 0, 0)
+	game.marking(playerTwo, 0, 1)
 	actual := game.board
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t, expected, actual)
 }
 
-func Test_CheckWin_Put_XXX_In_First_Line_Should_Be_X_WIN_As_Winner_And_True_As_GameDone(t *testing.T){
-	expectedGameDone , expectedWinner := true,"X WIN"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
+func Test_CheckWin_Put_XXX_In_First_Line_Should_Be_X_WIN_As_Winner_And_True_As_GameDone(t *testing.T) {
+	expectedGameDone, expectedWinner := true, "X WIN"
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
 	game.board = [3][3]string{
-		[3]string{"X","X","X"},
-		[3]string{"","",""},
-		[3]string{"","",""},
+		[3]string{"X", "X", "X"},
+		[3]string{"", "", ""},
+		[3]string{"", "", ""},
 	}
-	actualGameDone,actualWinner := game.checkWin()
+	actualGameDone, actualWinner := game.checkWin()
 
-	assert.Equal(t,expectedWinner,actualWinner)
-	assert.Equal(t,expectedGameDone,actualGameDone)
+	assert.Equal(t, expectedWinner, actualWinner)
+	assert.Equal(t, expectedGameDone, actualGameDone)
 }
 
-func Test_CheckWin_Input_Board_From_NewGame_Should_Be_NO_WIN_As_Winner_And_False_As_GameDone(t *testing.T){
-	expectedGameDone , expectedWinner := false,"NO WIN"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
+func Test_CheckWin_Input_Board_From_NewGame_Should_Be_NO_WIN_As_Winner_And_False_As_GameDone(t *testing.T) {
+	expectedGameDone, expectedWinner := false, "NO WIN"
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
 
-	actualGameDone,actualWinner := game.checkWin()
+	actualGameDone, actualWinner := game.checkWin()
 
-	assert.Equal(t,expectedWinner,actualWinner)
-	assert.Equal(t,expectedGameDone,actualGameDone)
+	assert.Equal(t, expectedWinner, actualWinner)
+	assert.Equal(t, expectedGameDone, actualGameDone)
 }
 
-
-
-func Test_SwitchTurn_Input_PlayerOne_Play_First_Turn_Should_Be_PlayerTwo_Turn(t *testing.T){
+func Test_SwitchTurn_Input_PlayerOne_Play_First_Turn_Should_Be_PlayerTwo_Turn(t *testing.T) {
 	expected := "PK"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
 
-	game.Play(playerOne,0,0)
+	game.Play(playerOne, 0, 0)
 	actual := game.currentTurn
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t, expected, actual)
 }
 
-func Test_SwitchTurn_Input_PlayerTwo_Play_Second_Turn_Should_Be_PlayerOne_Turn(t *testing.T){
+func Test_SwitchTurn_Input_PlayerTwo_Play_Second_Turn_Should_Be_PlayerOne_Turn(t *testing.T) {
 	expected := "KA"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
+	game := NewGame(playerOne, playerTwo)
 
-	game.Play(playerOne,0,0)
-	game.Play(playerTwo,0,1)
+	game.Play(playerOne, 0, 0)
+	game.Play(playerTwo, 0, 1)
 	actual := game.currentTurn
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t, expected, actual)
 }
 
-func Test_GetCurrentPlayer_FirstTurn_Should_Be_PlayerOne_Turn(t *testing.T){
+func Test_GetCurrentPlayer_FirstTurn_Should_Be_PlayerOne_Turn(t *testing.T) {
 	expected := "KA"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
 
-	game := NewGame(playerOne,playerTwo)
+	game := NewGame(playerOne, playerTwo)
 	actual := game.getCurrentPlayer().name
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t, expected, actual)
 }
 
-
-func Test_GetCurrentPlayer_SecondTurn_Should_Be_PlayerTwo_Turn(t *testing.T){
+func Test_GetCurrentPlayer_SecondTurn_Should_Be_PlayerTwo_Turn(t *testing.T) {
 	expected := "PK"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
+	playerOne := NewPlayer("KA", "X")
+	playerTwo := NewPlayer("PK", "O")
 
-	game := NewGame(playerOne,playerTwo)
-	game.Play(playerOne,0,0)
+	game := NewGame(playerOne, playerTwo)
+	game.Play(playerOne, 0, 0)
 	actual := game.getCurrentPlayer().name
 
-	assert.Equal(t,expected,actual)
+	assert.Equal(t, expected, actual)
 }
