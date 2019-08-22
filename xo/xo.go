@@ -48,8 +48,8 @@ func (game *Game) marking(player Player, locationX, locationY int) {
 }
 
 func (game Game) checkWin() (bool, string) {
-	// Horizontal Conditions
 	currentPlayer := game.getCurrentPlayer()
+	// Horizontal Conditions
 	if game.board[0][0] == currentPlayer.symbol &&
 		game.board[0][1] == currentPlayer.symbol &&
 		game.board[0][2] == currentPlayer.symbol {
@@ -96,9 +96,10 @@ func (game Game) checkWin() (bool, string) {
 }
 
 func (game *Game) switchTurn() {
-	if game.currentTurn == game.playersOne.name {
+	switch game.currentTurn {
+	case game.playersOne.name:
 		game.currentTurn = game.playersTwo.name
-	} else {
+	case game.playersTwo.name:
 		game.currentTurn = game.playersOne.name
 	}
 }
