@@ -47,7 +47,7 @@ func (game *Game) marking(player Player, locationX,locationY int) {
 }
 
 func (game Game) checkWin() (bool , string) {
-	// Horizontal Condition
+	// Horizontal Conditions
 	if (
 			game.board[0][0] == game.playersOne.symbol &&
 			game.board[0][1] == game.playersOne.symbol &&
@@ -66,7 +66,7 @@ func (game Game) checkWin() (bool , string) {
 			game.board[2][2] == game.playersOne.symbol ) {
 		return true , game.playersOne.symbol+" WIN"
 	}
-	// Vertical Condition
+	// Vertical Conditions
 	if (
 		game.board[0][0] == game.playersOne.symbol &&
 			game.board[1][0] == game.playersOne.symbol &&
@@ -83,6 +83,19 @@ func (game Game) checkWin() (bool , string) {
 		game.board[0][2] == game.playersOne.symbol &&
 			game.board[1][2] == game.playersOne.symbol &&
 			game.board[2][2] == game.playersOne.symbol ) {
+		return true , game.playersOne.symbol+" WIN"
+	}
+	// Cross Conditions
+	if (
+		game.board[0][0] == game.playersOne.symbol &&
+			game.board[1][1] == game.playersOne.symbol &&
+			game.board[2][2] == game.playersOne.symbol ) {
+		return true , game.playersOne.symbol+" WIN"
+	}
+	if (
+		game.board[0][2] == game.playersOne.symbol &&
+			game.board[1][1] == game.playersOne.symbol &&
+			game.board[2][0] == game.playersOne.symbol ) {
 		return true , game.playersOne.symbol+" WIN"
 	}
 
