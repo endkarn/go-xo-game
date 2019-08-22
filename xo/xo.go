@@ -37,7 +37,7 @@ func (game *Game) Play(player Player, locationX,locationY int) string {
 		return winner
 	}
 	game.switchTurn()
-	return "NO WIN"
+	return winner
 }
 
 func (game *Game) marking(player Player, locationX,locationY int) {
