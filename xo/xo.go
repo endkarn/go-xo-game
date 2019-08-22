@@ -54,6 +54,10 @@ func (game Game) checkWin() (bool , string) {
 	return false , "NO WIN"
 }
 
-func (game Game) switchTurn() {
-	
+func (game *Game) switchTurn() {
+	if game.currentTurn == game.playersOne.name {
+		game.currentTurn = game.playersTwo.name
+	} else {
+		game.currentTurn = game.playersOne.name
+	}
 }
