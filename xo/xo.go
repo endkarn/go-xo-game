@@ -48,57 +48,57 @@ func (game *Game) marking(player Player, locationX,locationY int) {
 
 func (game Game) checkWin() (bool , string) {
 	// Horizontal Conditions
+	currentPlayer := game.getCurrentPlayer()
 	if (
-			game.board[0][0] == game.playersOne.symbol &&
-			game.board[0][1] == game.playersOne.symbol &&
-			game.board[0][2] == game.playersOne.symbol ) {
-			return true , game.playersOne.symbol+" WIN"
+			game.board[0][0] == currentPlayer.symbol &&
+			game.board[0][1] == currentPlayer.symbol &&
+			game.board[0][2] == currentPlayer.symbol ) {
+			return true , currentPlayer.symbol+" WIN"
 	}
 	if (
-			game.board[1][0] == game.playersOne.symbol &&
-			game.board[1][1] == game.playersOne.symbol &&
-			game.board[1][2] == game.playersOne.symbol ) {
-		return true , game.playersOne.symbol+" WIN"
+			game.board[1][0] == currentPlayer.symbol &&
+			game.board[1][1] == currentPlayer.symbol &&
+			game.board[1][2] == currentPlayer.symbol ) {
+		return true , currentPlayer.symbol+" WIN"
 	}
 	if (
-			game.board[2][0] == game.playersOne.symbol &&
-			game.board[2][1] == game.playersOne.symbol &&
-			game.board[2][2] == game.playersOne.symbol ) {
-		return true , game.playersOne.symbol+" WIN"
+			game.board[2][0] == currentPlayer.symbol &&
+			game.board[2][1] == currentPlayer.symbol &&
+			game.board[2][2] == currentPlayer.symbol ) {
+		return true , currentPlayer.symbol+" WIN"
 	}
 	// Vertical Conditions
 	if (
-		game.board[0][0] == game.playersOne.symbol &&
-			game.board[1][0] == game.playersOne.symbol &&
-			game.board[2][0] == game.playersOne.symbol ) {
-		return true , game.playersOne.symbol+" WIN"
+			game.board[0][0] == currentPlayer.symbol &&
+			game.board[1][0] == currentPlayer.symbol &&
+			game.board[2][0] == currentPlayer.symbol ) {
+		return true , currentPlayer.symbol+" WIN"
 	}
 	if (
-		game.board[0][1] == game.playersOne.symbol &&
-			game.board[1][1] == game.playersOne.symbol &&
-			game.board[2][1] == game.playersOne.symbol ) {
-		return true , game.playersOne.symbol+" WIN"
+			game.board[0][1] == currentPlayer.symbol &&
+			game.board[1][1] == currentPlayer.symbol &&
+			game.board[2][1] == currentPlayer.symbol ) {
+		return true , currentPlayer.symbol+" WIN"
 	}
 	if (
-		game.board[0][2] == game.playersOne.symbol &&
-			game.board[1][2] == game.playersOne.symbol &&
-			game.board[2][2] == game.playersOne.symbol ) {
-		return true , game.playersOne.symbol+" WIN"
+			game.board[0][2] == currentPlayer.symbol &&
+			game.board[1][2] == currentPlayer.symbol &&
+			game.board[2][2] == currentPlayer.symbol ) {
+		return true , currentPlayer.symbol+" WIN"
 	}
 	// Cross Conditions
 	if (
-		game.board[0][0] == game.playersOne.symbol &&
-			game.board[1][1] == game.playersOne.symbol &&
-			game.board[2][2] == game.playersOne.symbol ) {
-		return true , game.playersOne.symbol+" WIN"
+			game.board[0][0] == currentPlayer.symbol &&
+			game.board[1][1] == currentPlayer.symbol &&
+			game.board[2][2] == currentPlayer.symbol ) {
+		return true , currentPlayer.symbol+" WIN"
 	}
 	if (
-		game.board[0][2] == game.playersOne.symbol &&
-			game.board[1][1] == game.playersOne.symbol &&
-			game.board[2][0] == game.playersOne.symbol ) {
-		return true , game.playersOne.symbol+" WIN"
+			game.board[0][2] == currentPlayer.symbol &&
+			game.board[1][1] == currentPlayer.symbol &&
+			game.board[2][0] == currentPlayer.symbol ) {
+		return true , currentPlayer.symbol+" WIN"
 	}
-
 	return false , nowinmessage
 }
 
@@ -108,4 +108,11 @@ func (game *Game) switchTurn() {
 	} else {
 		game.currentTurn = game.playersOne.name
 	}
+}
+
+func (game *Game) getCurrentPlayer() Player {
+	if game.currentTurn == game.playersOne.name {
+		return game.playersOne
+	}
+	return game.playersTwo
 }
