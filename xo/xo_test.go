@@ -20,6 +20,36 @@ func Test_XOGame_PlayerOne_Win_In_Horizontal_FirstLine(t *testing.T) {
 	assert.Equal(t,expected,actual)
 }
 
+func Test_XOGame_PlayerOne_Win_In_Horizontal_SecondLine(t *testing.T) {
+	expected := "X WIN"
+	playerOne := NewPlayer("KA","X")
+	playerTwo := NewPlayer("PK","O")
+	game := NewGame(playerOne,playerTwo)
+
+	game.Play(playerOne,1,0)
+	game.Play(playerTwo,0,0)
+	game.Play(playerOne,1,1)
+	game.Play(playerTwo,0,1)
+	actual := game.Play(playerOne,1,2)
+
+	assert.Equal(t,expected,actual)
+}
+
+func Test_XOGame_PlayerOne_Win_In_Horizontal_ThirdLine(t *testing.T) {
+	expected := "X WIN"
+	playerOne := NewPlayer("KA","X")
+	playerTwo := NewPlayer("PK","O")
+	game := NewGame(playerOne,playerTwo)
+
+	game.Play(playerOne,2,0)
+	game.Play(playerTwo,0,0)
+	game.Play(playerOne,2,1)
+	game.Play(playerTwo,0,1)
+	actual := game.Play(playerOne,2,2)
+
+	assert.Equal(t,expected,actual)
+}
+
 func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_Should_Be_X_In_Board_0_0(t *testing.T){
 	expected := [3][3]string{
 		[3]string{"X","",""},
@@ -31,6 +61,23 @@ func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_Should_Be_X_In_Board_0
 	game := NewGame(playerOne,playerTwo)
 
 	game.marking(playerOne,0,0)
+	actual := game.board
+
+	assert.Equal(t,expected,actual)
+}
+
+func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_And_PlayerTwo_LocationX_0_LocationY_1_Should_Be_X_In_Board_0_0_And_O_In_Board_0_1(t *testing.T){
+	expected := [3][3]string{
+		[3]string{"X","O",""},
+		[3]string{"","",""},
+		[3]string{"","",""},
+	}
+	playerOne := NewPlayer("KA","X")
+	playerTwo := NewPlayer("PK","O")
+	game := NewGame(playerOne,playerTwo)
+
+	game.marking(playerOne,0,0)
+	game.marking(playerTwo,0,1)
 	actual := game.board
 
 	assert.Equal(t,expected,actual)
@@ -87,49 +134,4 @@ func Test_SwitchTurn_Input_PlayerTwo_Play_Second_Turn_Should_Be_PlayerOne_Turn(t
 	assert.Equal(t,expected,actual)
 }
 
-func Test_XOGame_PlayerOne_Win_In_Horizontal_SecondLine(t *testing.T) {
-	expected := "X WIN"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
 
-	game.Play(playerOne,1,0)
-	game.Play(playerTwo,0,0)
-	game.Play(playerOne,1,1)
-	game.Play(playerTwo,0,1)
-	actual := game.Play(playerOne,1,2)
-
-	assert.Equal(t,expected,actual)
-}
-
-func Test_XOGame_PlayerOne_Win_In_Horizontal_ThirdLine(t *testing.T) {
-	expected := "X WIN"
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
-
-	game.Play(playerOne,2,0)
-	game.Play(playerTwo,0,0)
-	game.Play(playerOne,2,1)
-	game.Play(playerTwo,0,1)
-	actual := game.Play(playerOne,2,2)
-
-	assert.Equal(t,expected,actual)
-}
-
-func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_And_PlayerTwo_LocationX_0_LocationY_1_Should_Be_X_In_Board_0_0_And_O_In_Board_0_1(t *testing.T){
-	expected := [3][3]string{
-		[3]string{"X","O",""},
-		[3]string{"","",""},
-		[3]string{"","",""},
-	}
-	playerOne := NewPlayer("KA","X")
-	playerTwo := NewPlayer("PK","O")
-	game := NewGame(playerOne,playerTwo)
-
-	game.marking(playerOne,0,0)
-	game.marking(playerTwo,0,1)
-	actual := game.board
-
-	assert.Equal(t,expected,actual)
-}
