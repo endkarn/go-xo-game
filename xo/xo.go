@@ -49,19 +49,19 @@ func (game Game) checkWin() (bool , string) {
 			game.board[0][0] == game.playersOne.symbol &&
 			game.board[0][1] == game.playersOne.symbol &&
 			game.board[0][2] == game.playersOne.symbol ) {
-			return true , "X WIN"
+			return true , game.playersOne.symbol+" WIN"
 	}
 	if (
 			game.board[1][0] == game.playersOne.symbol &&
 			game.board[1][1] == game.playersOne.symbol &&
 			game.board[1][2] == game.playersOne.symbol ) {
-		return true , "X WIN"
+		return true , game.playersOne.symbol+" WIN"
 	}
 	if (
 			game.board[2][0] == game.playersOne.symbol &&
 			game.board[2][1] == game.playersOne.symbol &&
 			game.board[2][2] == game.playersOne.symbol ) {
-		return true , "X WIN"
+		return true , game.playersOne.symbol+" WIN"
 	}
 	return false , "NO WIN"
 }
