@@ -101,3 +101,18 @@ func Test_XOGame_PlayerOne_Win_In_Horizontal_SecondLine(t *testing.T) {
 
 	assert.Equal(t,expected,actual)
 }
+
+func Test_XOGame_PlayerOne_Win_In_Horizontal_ThridLine(t *testing.T) {
+	expected := "X WIN"
+	playerOne := NewPlayer("KA","X")
+	playerTwo := NewPlayer("PK","O")
+	game := NewGame(playerOne,playerTwo)
+
+	game.Play(playerOne,2,0)
+	game.Play(playerTwo,0,0)
+	game.Play(playerOne,2,1)
+	game.Play(playerTwo,0,1)
+	actual := game.Play(playerOne,2,2)
+
+	assert.Equal(t,expected,actual)
+}
