@@ -37,6 +37,7 @@ func (game *Game) Play(player Player, locationX, locationY int) string {
 	gameDone, winner := game.checkWin()
 	if gameDone {
 		game.getCurrentPlayer().score++
+		game.board = [3][3]string{}
 		return winner
 	}
 	game.switchTurn()
