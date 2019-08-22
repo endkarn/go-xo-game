@@ -1,5 +1,7 @@
 package xo
 
+const nowinmessage  =  "NO WIN"
+
 type Player struct {
 	symbol string
 	name string
@@ -63,7 +65,7 @@ func (game Game) checkWin() (bool , string) {
 			game.board[2][2] == game.playersOne.symbol ) {
 		return true , game.playersOne.symbol+" WIN"
 	}
-	return false , "NO WIN"
+	return false , nowinmessage
 }
 
 func (game *Game) switchTurn() {
