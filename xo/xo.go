@@ -5,7 +5,7 @@ const nowinmessage = "NO WIN"
 type Player struct {
 	Symbol string `json:"symbol"`
 	Name   string `json:"name"`
-	Score  int `json:"score"`
+	Score  int    `json:"score"`
 }
 
 type Game struct {
