@@ -6,35 +6,53 @@ import (
 	"net/http"
 )
 
-var xoGame xo.Game
-
-type PlayGame struct {
-	Player xo.Player `json:"player"`
-	LocationX int `json:"location_x"`
-	LocationY int `json:"location_y"`
+type GameAPI struct {
+	xoGame xo.Game
 }
 
-func NewGameHandler(context *gin.Context){
+type PlayGame struct {
+	Player    xo.Player `json:"player"`
+	LocationX int       `json:"location_x"`
+	LocationY int       `json:"location_y"`
+}
+
+func (gameAPI *GameAPI) NewGameHandler(context *gin.Context) {
 	var reqXOGame xo.Game
 	err := context.BindJSON(&reqXOGame)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	playerOne := xo.NewPlayer(reqXOGame.PlayersOne.Name,reqXOGame.PlayersOne.Symbol)
-	playerTwo := xo.NewPlayer(reqXOGame.PlayersTwo.Name,reqXOGame.PlayersTwo.Symbol)
-	xoGame = xo.NewGame(playerOne,playerTwo)
-	context.JSON(http.StatusCreated, xoGame)
+	playerOne := xo.NewPlayer(reqXOGame.PlayersOne.Name, reqXOGame.PlayersOne.Symbol)
+	playerTwo := xo.NewPlayer(reqXOGame.PlayersTwo.Name, reqXOGame.PlayersTwo.Symbol)
+	gameAPI.xoGame = xo.NewGame(playerOne, playerTwo)
+	context.JSON(http.StatusCreated, gameAPI.xoGame)
 }
 
-func PlayHandler(context *gin.Context){
+func (gameAPI *GameAPI) PlayHandler(context *gin.Context) {
 	var reqPlayGame PlayGame
 	err := context.BindJSON(&reqPlayGame)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
+	if gameAPI.xoGame.PlayersOne.Symbol == "" {
+		context.JSON(http.StatusNoContent, gin.H{
+			"message": "xogame did not created yet",
+		})
+		return
+	}
 	context.JSON(http.StatusOK, gin.H{
-		"message":xoGame.Play(reqPlayGame.Player,reqPlayGame.LocationX,reqPlayGame.LocationY),
+		"message": gameAPI.xoGame.Play(reqPlayGame.Player, reqPlayGame.LocationX, reqPlayGame.LocationY),
 	})
+}
+
+func (gameAPI *GameAPI) ViewGameHandler(context *gin.Context) {
+	if gameAPI.xoGame.PlayersOne.Symbol == "" {
+		context.JSON(http.StatusNoContent, gin.H{
+			"message": "xogame did not created yet",
+		})
+		return
+	}
+	context.JSON(http.StatusOK, gameAPI.xoGame)
 }
