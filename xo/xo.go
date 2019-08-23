@@ -34,8 +34,8 @@ func NewGame(playerOne, playerTwo Player) Game {
 
 func (game *Game) Play(player Player, locationX, locationY int) string {
 	game.marking(player, locationX, locationY)
-	gameDone, winner := game.checkWin()
-	if gameDone {
+	haveWinner, winner := game.checkWin()
+	if haveWinner {
 		game.getCurrentPlayer().score++
 		game.board = [3][3]string{}
 		return winner
