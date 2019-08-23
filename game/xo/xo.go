@@ -51,36 +51,20 @@ func (game *Game) marking(player Player, locationX, locationY int) {
 func (game Game) checkWin() (bool, string) {
 	currentPlayer := game.getCurrentPlayer()
 	// Horizontal Conditions
-	if game.Board[0][0] == currentPlayer.Symbol &&
-		game.Board[0][1] == currentPlayer.Symbol &&
-		game.Board[0][2] == currentPlayer.Symbol {
-		return true, currentPlayer.Symbol + " WIN"
-	}
-	if game.Board[1][0] == currentPlayer.Symbol &&
-		game.Board[1][1] == currentPlayer.Symbol &&
-		game.Board[1][2] == currentPlayer.Symbol {
-		return true, currentPlayer.Symbol + " WIN"
-	}
-	if game.Board[2][0] == currentPlayer.Symbol &&
-		game.Board[2][1] == currentPlayer.Symbol &&
-		game.Board[2][2] == currentPlayer.Symbol {
-		return true, currentPlayer.Symbol + " WIN"
+	for x := range game.Board {
+		if game.Board[x][0] == currentPlayer.Symbol &&
+			game.Board[x][1] == currentPlayer.Symbol &&
+			game.Board[x][2] == currentPlayer.Symbol {
+			return true, currentPlayer.Symbol + " WIN"
+		}
 	}
 	// Vertical Conditions
-	if game.Board[0][0] == currentPlayer.Symbol &&
-		game.Board[1][0] == currentPlayer.Symbol &&
-		game.Board[2][0] == currentPlayer.Symbol {
-		return true, currentPlayer.Symbol + " WIN"
-	}
-	if game.Board[0][1] == currentPlayer.Symbol &&
-		game.Board[1][1] == currentPlayer.Symbol &&
-		game.Board[2][1] == currentPlayer.Symbol {
-		return true, currentPlayer.Symbol + " WIN"
-	}
-	if game.Board[0][2] == currentPlayer.Symbol &&
-		game.Board[1][2] == currentPlayer.Symbol &&
-		game.Board[2][2] == currentPlayer.Symbol {
-		return true, currentPlayer.Symbol + " WIN"
+	for y := range game.Board {
+		if game.Board[0][y] == currentPlayer.Symbol &&
+			game.Board[1][y] == currentPlayer.Symbol &&
+			game.Board[2][y] == currentPlayer.Symbol {
+			return true, currentPlayer.Symbol + " WIN"
+		}
 	}
 	// Cross Conditions
 	if game.Board[0][0] == currentPlayer.Symbol &&
