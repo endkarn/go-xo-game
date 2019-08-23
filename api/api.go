@@ -36,10 +36,8 @@ func (gameAPI *GameAPI) PlayHandler(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	if gameAPI.xoGame.PlayersOne.Symbol == "" {
-		context.JSON(http.StatusNoContent, gin.H{
-			"message": "xogame did not created yet",
-		})
+	if !gameIsStarted(gameAPI.xoGame) {
+		context.JSON(http.StatusNotFound, gin.H{"error": "game did not created yet , not fond the game"})
 		return
 	}
 	context.JSON(http.StatusOK, gin.H{
@@ -48,11 +46,16 @@ func (gameAPI *GameAPI) PlayHandler(context *gin.Context) {
 }
 
 func (gameAPI *GameAPI) ViewGameHandler(context *gin.Context) {
-	if gameAPI.xoGame.PlayersOne.Symbol == "" {
-		context.JSON(http.StatusNoContent, gin.H{
-			"message": "xogame did not created yet",
-		})
+	if !gameIsStarted(gameAPI.xoGame) {
+		context.JSON(http.StatusNotFound, gin.H{"error": "game did not created yet , not fond the game"})
 		return
 	}
 	context.JSON(http.StatusOK, gameAPI.xoGame)
+}
+
+func gameIsStarted(game xo.Game) bool {
+	if game.PlayersOne.Symbol == "" || game.PlayersTwo.Symbol == "" {
+		return false
+	}
+	return true
 }
