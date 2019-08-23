@@ -16,7 +16,7 @@ func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_Should_Be_X_In_Board_0
 	game := NewGame(playerOne, playerTwo)
 
 	game.marking(playerOne, 0, 0)
-	actual := game.board
+	actual := game.Board
 
 	assert.Equal(t, expected, actual)
 }
@@ -33,7 +33,7 @@ func Test_Marking_Input_PlayerOne_LocationX_0_LocationY_0_And_PlayerTwo_Location
 
 	game.marking(playerOne, 0, 0)
 	game.marking(playerTwo, 0, 1)
-	actual := game.board
+	actual := game.Board
 
 	assert.Equal(t, expected, actual)
 }
@@ -43,7 +43,7 @@ func Test_CheckWin_Put_XXX_In_First_Line_Should_Be_X_WIN_As_Winner_And_True_As_G
 	playerOne := NewPlayer("KA", "X")
 	playerTwo := NewPlayer("PK", "O")
 	game := NewGame(playerOne, playerTwo)
-	game.board = [3][3]string{
+	game.Board = [3][3]string{
 		[3]string{"X", "X", "X"},
 		[3]string{"", "", ""},
 		[3]string{"", "", ""},
@@ -73,7 +73,7 @@ func Test_SwitchTurn_Input_PlayerOne_Play_First_Turn_Should_Be_PlayerTwo_Turn(t 
 	game := NewGame(playerOne, playerTwo)
 
 	game.Play(playerOne, 0, 0)
-	actual := game.currentTurn
+	actual := game.CurrentTurn
 
 	assert.Equal(t, expected, actual)
 }
@@ -86,7 +86,7 @@ func Test_SwitchTurn_Input_PlayerTwo_Play_Second_Turn_Should_Be_PlayerOne_Turn(t
 
 	game.Play(playerOne, 0, 0)
 	game.Play(playerTwo, 0, 1)
-	actual := game.currentTurn
+	actual := game.CurrentTurn
 
 	assert.Equal(t, expected, actual)
 }
@@ -97,7 +97,7 @@ func Test_GetCurrentPlayer_FirstTurn_Should_Be_PlayerOne_Turn(t *testing.T) {
 	playerTwo := NewPlayer("PK", "O")
 
 	game := NewGame(playerOne, playerTwo)
-	actual := game.getCurrentPlayer().name
+	actual := game.getCurrentPlayer().Name
 
 	assert.Equal(t, expected, actual)
 }
@@ -109,7 +109,7 @@ func Test_GetCurrentPlayer_SecondTurn_Should_Be_PlayerTwo_Turn(t *testing.T) {
 
 	game := NewGame(playerOne, playerTwo)
 	game.Play(playerOne, 0, 0)
-	actual := game.getCurrentPlayer().name
+	actual := game.getCurrentPlayer().Name
 
 	assert.Equal(t, expected, actual)
 }
@@ -125,7 +125,7 @@ func Test_XOGame_PlayerOne_Have_Score_1_After_Win_FirstGame(t *testing.T) {
 	game.Play(playerOne, 0, 1)
 	game.Play(playerTwo, 1, 1)
 	game.Play(playerOne, 0, 2)
-	actual := game.playersOne.score
+	actual := game.PlayersOne.Score
 
 	assert.Equal(t, expected, actual)
 }
@@ -142,7 +142,7 @@ func Test_XOGame_PlayerTwo_Have_Score_1_After_Win_FirstGame(t *testing.T) {
 	game.Play(playerTwo, 1, 1)
 	game.Play(playerOne, 2, 1)
 	game.Play(playerTwo, 2, 2)
-	actual := game.playersTwo.score
+	actual := game.PlayersTwo.Score
 
 	assert.Equal(t, expected, actual)
 }
@@ -159,7 +159,7 @@ func Test_XOGame_GameBoard_Should_Be_Empty_After_Player_Win_Game(t *testing.T) {
 	game.Play(playerTwo, 1, 1)
 	game.Play(playerOne, 2, 1)
 	game.Play(playerTwo, 2, 2)
-	actual := game.board
+	actual := game.Board
 
 	assert.Equal(t, expected, actual)
 }
