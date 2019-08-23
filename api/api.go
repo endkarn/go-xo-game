@@ -7,8 +7,14 @@ import (
 )
 
 func NewGameHandler(context *gin.Context){
-	playerOne := xo.NewPlayer("KA","X")
-	playerTwo := xo.NewPlayer("PK","O")
+	var reqXOGame xo.Game
+	err := context.BindJSON(&reqXOGame)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	playerOne := xo.NewPlayer(reqXOGame.PlayersOne.Name,reqXOGame.PlayersOne.Symbol)
+	playerTwo := xo.NewPlayer(reqXOGame.PlayersTwo.Name,reqXOGame.PlayersTwo.Symbol)
 	xoGame := xo.NewGame(playerOne,playerTwo)
 	context.JSON(http.StatusCreated, xoGame)
 }

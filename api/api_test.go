@@ -11,7 +11,7 @@ import (
 
 func Test_CreateXOGame_Input_PlayerOne_KA_PlayerTwo_PK_Should_Be_New_XOGame_With_Two_Players_Empty_Board_And_No_Score(t *testing.T){
 	expected := `{"board":[["","",""],["","",""],["","",""]],"player_one":{"symbol":"X","name":"KA","score":0},"player_two":{"symbol":"O","name":"PK","score":0},"current_turn":"KA"}`
-	requestBody := `{"player_one":{"name":"KA"},"player_tow":{"name":"PK"}}`
+	requestBody := `{"player_one":{"symbol":"X","name":"KA"},"player_two":{"symbol":"O","name":"PK"}}`
 	request := httptest.NewRequest("POST","/new_game",strings.NewReader(requestBody))
 	writer := httptest.NewRecorder()
 	testRoute := gin.Default()
@@ -23,3 +23,4 @@ func Test_CreateXOGame_Input_PlayerOne_KA_PlayerTwo_PK_Should_Be_New_XOGame_With
 
 	assert.Equal(t, expected, string(actual))
 }
+
