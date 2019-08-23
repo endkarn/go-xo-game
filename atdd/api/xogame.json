@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "5f75a3e9-a072-4786-8ff0-53cff717d6a4",
+		"name": "XO Game API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "KA Player (X symbol) win game by horizontal firstline",
+			"item": [
+				{
+					"name": "Create new XO game with player KA and player PK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "779418f6-52d2-40e4-a82a-0cf45372bc58",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"PlayerOne name is KA\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.player_one.name).to.eql(\"KA\");",
+									"});",
+									"",
+									"pm.test(\"PlayerOne symbol is X\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.player_one.symbol).to.eql(\"X\");",
+									"});",
+									"",
+									"pm.test(\"PlayerOne score is 0\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.player_one.score).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"PlayerTwo name is PK\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.player_two.name).to.eql(\"PK\");",
+									"});",
+									"",
+									"pm.test(\"PlayerTwo symbol is O\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.player_two.symbol).to.eql(\"O\");",
+									"});",
+									"",
+									"pm.test(\"PlayerTwo score is 0\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.player_two.score).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"player_one\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"player_two\": {\n        \"symbol\": \"O\",\n        \"name\": \"PK\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/new_game",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"new_game"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player KA play X at (0,0)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "299b8dec-1bbe-4279-b34f-54875532f1df",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"player\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"location_x\":0,\n    \"location_y\":0\n}"
+						},
+						"url": {
+							"raw": "{{host}}/play",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"play"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player PK play O at (1,0)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d72f2315-1564-4771-bffc-142ad6bc7464",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"player\": {\n        \"symbol\": \"O\",\n        \"name\": \"PK\"\n    },\n    \"location_x\":1,\n    \"location_y\":0\n}"
+						},
+						"url": {
+							"raw": "{{host}}/play",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"play"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player KA play X at (0,1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "661c2121-56ba-4f17-95f7-ba513fcc355b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"player\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"location_x\":0,\n    \"location_y\":1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/play",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"play"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player PK play O at (1,1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "642de2cc-109a-4573-b25e-06c0c4c85a17",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"player\": {\n        \"symbol\": \"O\",\n        \"name\": \"PK\"\n    },\n    \"location_x\":1,\n    \"location_y\":1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/play",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"play"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player KA play X at (0,2) then win",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7e18d26-4e97-406d-8872-381d490b41b7",
+								"exec": [
+									"",
+									"pm.test(\"Message is X WIN\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"X WIN\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"player\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"location_x\":0,\n    \"location_y\":2\n}"
+						},
+						"url": {
+							"raw": "{{host}}/play",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"play"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
