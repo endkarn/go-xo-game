@@ -29,25 +29,12 @@ func Test_ViewGameHandler_Should_Be_Get_Current_Stage_Of_Game_Board(t *testing.T
 	expected := `{"board":[["X","O","X"],["","",""],["","",""]],"player_one":{"symbol":"X","name":"KA","score":10},"player_two":{"symbol":"O","name":"PK","score":5},"current_turn":"KA"}`
 	request := httptest.NewRequest("GET", "/game", nil)
 	writer := httptest.NewRecorder()
-	mockGame := xo.Game{
-		Board: [3][3]string{
-			[3]string{"X", "O", "X"},
-			[3]string{"", "", ""},
-			[3]string{"", "", ""},
-		},
-		PlayersOne: xo.Player{
-			Name:   "KA",
-			Symbol: "X",
-			Score:  10,
-		},
-		PlayersTwo: xo.Player{
-			Name:   "PK",
-			Symbol: "O",
-			Score:  5,
-		},
-		CurrentTurn: "KA",
+
+	mockGameAPI := GameAPI{
+		XOGame: &xo.FakeGame{},
 	}
-	mockGameAPI := GameAPI{xoGame: mockGame}
+
+
 	testRoute := gin.Default()
 	testRoute.GET("/game", mockGameAPI.ViewGameHandler)
 	testRoute.ServeHTTP(writer, request)

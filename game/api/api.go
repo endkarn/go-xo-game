@@ -7,7 +7,7 @@ import (
 )
 
 type GameAPI struct {
-	xoGame xo.Game
+	XOGame xo.OXGame
 }
 
 type PlayGame struct {
@@ -25,8 +25,10 @@ func (gameAPI *GameAPI) NewGameHandler(context *gin.Context) {
 	}
 	playerOne := xo.NewPlayer(reqXOGame.PlayersOne.Name, reqXOGame.PlayersOne.Symbol)
 	playerTwo := xo.NewPlayer(reqXOGame.PlayersTwo.Name, reqXOGame.PlayersTwo.Symbol)
-	gameAPI.xoGame = xo.NewGame(playerOne, playerTwo)
-	context.JSON(http.StatusCreated, gameAPI.xoGame)
+	game := xo.NewGame(playerOne, playerTwo)
+	gameAPI.XOGame = &game
+
+	context.JSON(http.StatusCreated, gameAPI.XOGame)
 }
 
 func (gameAPI *GameAPI) PlayHandler(context *gin.Context) {
@@ -36,26 +38,19 @@ func (gameAPI *GameAPI) PlayHandler(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	if !gameIsStarted(gameAPI.xoGame) {
+	if !gameAPI.XOGame.IsStarted() {
 		context.JSON(http.StatusNotFound, gin.H{"error": "game did not created yet , not fond the game"})
 		return
 	}
 	context.JSON(http.StatusOK, gin.H{
-		"message": gameAPI.xoGame.Play(reqPlayGame.Player, reqPlayGame.LocationX, reqPlayGame.LocationY),
+		"message": gameAPI.XOGame.Play(reqPlayGame.Player, reqPlayGame.LocationX, reqPlayGame.LocationY),
 	})
 }
 
 func (gameAPI *GameAPI) ViewGameHandler(context *gin.Context) {
-	if !gameIsStarted(gameAPI.xoGame) {
+	if !gameAPI.XOGame.IsStarted() {
 		context.JSON(http.StatusNotFound, gin.H{"error": "game did not created yet , not fond the game"})
 		return
 	}
-	context.JSON(http.StatusOK, gameAPI.xoGame)
-}
-
-func gameIsStarted(game xo.Game) bool {
-	if game.PlayersOne.Symbol == "" || game.PlayersTwo.Symbol == "" {
-		return false
-	}
-	return true
+	context.JSON(http.StatusOK, gameAPI.XOGame.GetGameDetail())
 }

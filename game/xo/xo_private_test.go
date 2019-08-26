@@ -1,4 +1,4 @@
-package xo
+package xo2
 
 import (
 	"github.com/stretchr/testify/assert"

@@ -1,6 +1,6 @@
-package xo
+package xo2
 
-const nowinmessage = "NO WIN"
+const nowinner = "NO WIN"
 
 type Player struct {
 	Symbol string `json:"symbol"`
@@ -14,6 +14,14 @@ type Game struct {
 	PlayersTwo  Player       `json:"player_two"`
 	CurrentTurn string       `json:"current_turn"`
 }
+
+type OXGame interface {
+	Play(player Player, locationX, locationY int) string
+	IsStarted() bool
+	GetGameDetail() Game
+}
+
+
 
 func NewPlayer(name, symbol string) Player {
 	return Player{
@@ -41,7 +49,7 @@ func (game *Game) Play(player Player, locationX, locationY int) string {
 		return winner
 	}
 	game.switchTurn()
-	return winner
+	return nowinner
 }
 
 func (game *Game) marking(player Player, locationX, locationY int) {
@@ -77,7 +85,7 @@ func (game Game) checkWin() (bool, string) {
 		game.Board[2][0] == currentPlayer.Symbol {
 		return true, currentPlayer.Symbol + " WIN"
 	}
-	return false, nowinmessage
+	return false, nowinner
 }
 
 func (game *Game) switchTurn() {
@@ -94,4 +102,15 @@ func (game *Game) getCurrentPlayer() *Player {
 		return &game.PlayersOne
 	}
 	return &game.PlayersTwo
+}
+
+func (game Game) IsStarted() bool {
+	if game.PlayersOne.Symbol == "" || game.PlayersTwo.Symbol == "" {
+		return false
+	}
+	return true
+}
+
+func (game Game) GetGameDetail() Game {
+	return game
 }
