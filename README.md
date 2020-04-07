@@ -79,6 +79,43 @@ Response Body :
     "message": "X WIN"
 }
 ```
+
+## View game
+GET `http://localhost:3000/game`
+Response Body :
+```json
+{
+    "board": [
+        [
+            "X",
+            "X",
+            ""
+        ],
+        [
+            "O",
+            "O",
+            ""
+        ],
+        [
+            "",
+            "",
+            ""
+        ]
+    ],
+    "player_one": {
+        "symbol": "X",
+        "name": "KA",
+        "score": 0
+    },
+    "player_two": {
+        "symbol": "O",
+        "name": "PK",
+        "score": 0
+    },
+    "current_turn": "KA"
+}
+```
+
 ---
 ## Coding Convention
 ## Directory Name
