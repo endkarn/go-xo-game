@@ -1,5 +1,86 @@
 # go-xo-game
 
+## API Spec
+### Create New Game
+POST `http://localhost:3000/new_game`
+
+Request Body :
+```json
+{
+    "player_one": {
+        "symbol": "X",
+        "name": "KA"
+    },
+    "player_two": {
+        "symbol": "O",
+        "name": "PK"
+    }
+}
+```
+
+Response Body :
+```json
+{
+    "board": [
+        [
+            "",
+            "",
+            ""
+        ],
+        [
+            "",
+            "",
+            ""
+        ],
+        [
+            "",
+            "",
+            ""
+        ]
+    ],
+    "player_one": {
+        "symbol": "X",
+        "name": "KA",
+        "score": 0
+    },
+    "player_two": {
+        "symbol": "O",
+        "name": "PK",
+        "score": 0
+    },
+    "current_turn": "KA"
+}
+```
+### Player Play
+POST `http://localhost:3000/play`
+
+Request Body :
+```json
+{
+    "player": {
+        "symbol": "X",
+        "name": "KA"
+    },
+    "location_x":0,
+    "location_y":0
+}
+```
+
+Response Body :
+```json
+// game scenario
+{
+    "message": "NO WIN"
+}
+```
+```json
+// x mark player win scenario
+{
+    "message": "X WIN"
+}
+```
+---
+## Coding Convention
 ## Directory Name
 - ใช้ตัวอักษรพิมพ์เล็กทั้งหมด เช่น
 ```
