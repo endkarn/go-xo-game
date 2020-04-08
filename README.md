@@ -1,5 +1,17 @@
 # go-xo-game
 
+## How to start Service
+```
+game/bin/game (unix)
+game/bin/game-windows (windows)
+game/bin/game-windows.exe (windows)
+```
+
+## How to run Test
+```
+newman run atdd/api/xogame.json -e atdd/environment/postman_environment.json
+```
+---
 ## API Spec
 ### Create New Game
 POST `http://localhost:3000/new_game`
@@ -82,6 +94,7 @@ Response Body :
 
 ## View game
 GET `http://localhost:3000/game`
+
 Response Body :
 ```json
 {
