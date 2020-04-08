@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5f75a3e9-a072-4786-8ff0-53cff717d6a4",
+		"_postman_id": "482f7340-354d-45b2-83ec-9414696ff57c",
 		"name": "XO Game API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -18,6 +18,21 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Game board should empty\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.board[0]).to.deep.equals([\"\",\"\",\"\"]);",
+									"    pm.expect(jsonData.board[1]).to.deep.equals([\"\",\"\",\"\"]);",
+									"    pm.expect(jsonData.board[2]).to.deep.equals([\"\",\"\",\"\"]);",
+									"});",
+									"",
+									"pm.test(\"Game board size should are 3x3 \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.board.length).to.eql(3);",
+									"    pm.expect(jsonData.board[0].length).to.eql(3);",
+									"    pm.expect(jsonData.board[1].length).to.eql(3);",
+									"    pm.expect(jsonData.board[2].length).to.eql(3);",
 									"});",
 									"",
 									"pm.test(\"PlayerOne name is KA\", function () {",
@@ -69,9 +84,9 @@
 							"raw": "{\n    \"player_one\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"player_two\": {\n        \"symbol\": \"O\",\n        \"name\": \"PK\"\n    }\n}"
 						},
 						"url": {
-							"raw": "{{host}}/new_game",
+							"raw": "{{server}}/new_game",
 							"host": [
-								"{{host}}"
+								"{{server}}"
 							],
 							"path": [
 								"new_game"
@@ -111,9 +126,9 @@
 							"raw": "{\n    \"player\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"location_x\":0,\n    \"location_y\":0\n}"
 						},
 						"url": {
-							"raw": "{{host}}/play",
+							"raw": "{{server}}/play",
 							"host": [
-								"{{host}}"
+								"{{server}}"
 							],
 							"path": [
 								"play"
@@ -153,9 +168,9 @@
 							"raw": "{\n    \"player\": {\n        \"symbol\": \"O\",\n        \"name\": \"PK\"\n    },\n    \"location_x\":1,\n    \"location_y\":0\n}"
 						},
 						"url": {
-							"raw": "{{host}}/play",
+							"raw": "{{server}}/play",
 							"host": [
-								"{{host}}"
+								"{{server}}"
 							],
 							"path": [
 								"play"
@@ -195,9 +210,9 @@
 							"raw": "{\n    \"player\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"location_x\":0,\n    \"location_y\":1\n}"
 						},
 						"url": {
-							"raw": "{{host}}/play",
+							"raw": "{{server}}/play",
 							"host": [
-								"{{host}}"
+								"{{server}}"
 							],
 							"path": [
 								"play"
@@ -237,9 +252,9 @@
 							"raw": "{\n    \"player\": {\n        \"symbol\": \"O\",\n        \"name\": \"PK\"\n    },\n    \"location_x\":1,\n    \"location_y\":1\n}"
 						},
 						"url": {
-							"raw": "{{host}}/play",
+							"raw": "{{server}}/play",
 							"host": [
-								"{{host}}"
+								"{{server}}"
 							],
 							"path": [
 								"play"
@@ -281,9 +296,9 @@
 							"raw": "{\n    \"player\": {\n        \"symbol\": \"X\",\n        \"name\": \"KA\"\n    },\n    \"location_x\":0,\n    \"location_y\":2\n}"
 						},
 						"url": {
-							"raw": "{{host}}/play",
+							"raw": "{{server}}/play",
 							"host": [
-								"{{host}}"
+								"{{server}}"
 							],
 							"path": [
 								"play"
@@ -291,8 +306,75 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "View game board and players score",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7e18d26-4e97-406d-8872-381d490b41b7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Game board should empty\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.board[0]).to.deep.equals([\"\",\"\",\"\"]);",
+									"    pm.expect(jsonData.board[1]).to.deep.equals([\"\",\"\",\"\"]);",
+									"    pm.expect(jsonData.board[2]).to.deep.equals([\"\",\"\",\"\"]);",
+									"});",
+									"",
+									"pm.test(\"Game board size should are 3x3 \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.board.length).to.eql(3);",
+									"    pm.expect(jsonData.board[0].length).to.eql(3);",
+									"    pm.expect(jsonData.board[1].length).to.eql(3);",
+									"    pm.expect(jsonData.board[2].length).to.eql(3);",
+									"});",
+									"",
+									"pm.test(\"KA Score is 1\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.player_one.score).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{server}}/game",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"game"
+							]
+						}
+					},
+					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
